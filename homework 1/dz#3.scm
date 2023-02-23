@@ -1,0 +1,17 @@
+(define (my-gcd a b)
+  (let ((a (abs a))
+        (b (abs b)))
+    (if (or (= a 0) (= b 0)) (+ a b)
+        (if (>= a b) (my-gcd b (remainder a b))
+            (my-gcd a (remainder b a))))))
+
+(define (my-lcm a b)
+  (/ (abs (* a b)) (my-gcd a b)))
+
+(define (prime? n)
+  (define (help-prime p d)
+    (or (> (expt d 2) p)
+        (and (not (= (remainder p d) 0))
+             (help-prime p (+ d 1)))))
+  (and (>= n 2)
+       (help-prime n 2)))
