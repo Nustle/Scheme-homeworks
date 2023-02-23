@@ -76,3 +76,13 @@
   (if (list? xs)
       (reverse (loop (list) xs))
       (reverse (list xs))))
+
+; 3. my-flatten без append с хвостовой рекурсией 
+;    Асимптотика: O(n)
+(define (my-flatten xs)
+  (let loop ((xs xs) (stack '()))
+    (cond
+      ((and (null? xs) (null? stack)) '())
+      ((and (null? xs) (not(null? stack))) (loop (car stack) (cdr stack)))
+      ((pair? (car xs)) (loop (car xs) (cons (cdr xs) stack)))
+      (else (cons (car xs) (loop (cdr xs) stack))))))
